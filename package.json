@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test --headed --reporter=list",
+    "format": "prettier --write \"**/*.ts\""
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
