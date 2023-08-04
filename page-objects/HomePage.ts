@@ -6,8 +6,7 @@ export class HomePage {
   readonly searchBookBtn: Locator
   readonly cartBtn: Locator
   readonly ingresarBnt: Locator
-  readonly fictionLink: Locator
-
+  readonly listOfCategory: Locator
   readonly fantasyCategoryFiction: Locator
 
   constructor(page) {
@@ -16,7 +15,10 @@ export class HomePage {
     this.searchBookBtn = page.locator("//div[@class='w-100 flex']//button")
     this.cartBtn = page.locator("//div[@role='presentation']//button")
     this.ingresarBnt = page.locator("//div[@class='relative']//button")
-    this.fictionLink = page.locator("//div[text()='Fiction']")
+
+    this.listOfCategory = page.locator(
+      "//div[text()='Fiction']/ancestor::ul/li//div//div",
+    )
   }
 
   visit = async () => {
@@ -29,12 +31,10 @@ export class HomePage {
     await this.cartBtn.click()
   }
 
-  chooseCategoryFiction = async () => {
-    await this.fictionLink.waitFor()
-    await this.fictionLink.hover()
-    await this.page.locator("//div[text()='Fantasy']").waitFor()
-    await this.page.locator("//div[text()='Fantasy']").click()
-    await this.page.waitForURL(/\/fantasy/, { timeout: 3000 })
-    await this.page.pause()
+  choseCategoryWithParam = async (category: string, subcategory: string) => {
+    await this.page.locator(`//div[text()='${category}']`).waitFor()
+    await this.page.locator(`//div[text()='${category}']`).hover()
+    await this.page.locator(`//a[@title='${subcategory}']`).waitFor()
+    await this.page.locator(`//a[@title='${subcategory}']`).click()
   }
 }
