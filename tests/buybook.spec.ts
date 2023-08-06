@@ -10,18 +10,28 @@ test.describe.parallel.only('Buy book', async () => {
     //await page.pause()
   })
 
-  test.only('Click to Kids - Pockets', async () => {
+  test('Click to Kids - Pockets', async () => {
     //await homePage.chooseCategoryFiction()
     await homePage.choseCategoryWithParam('Kids', 'Pockets')
   })
 
-  test.only('Click to Fiction - Fantasy', async () => {
+  test('Click to Fiction - Fantasy', async () => {
     //await homePage.chooseCategoryFiction()
     await homePage.choseCategoryWithParam('Fiction', 'Fantasy')
   })
 
-  test.only('Click School Book - Skills', async () => {
+  test('Click School Book - Skills', async () => {
     //await homePage.chooseCategoryFiction()
     await homePage.choseCategoryWithParam('School Books', 'Skills')
+  })
+
+  test.only('Find the book isbn', async () => {
+    await homePage.findOneBookForParameter('9780000001043')
+  })
+
+  test.only('Find the book Name', async () => {
+    await homePage.findOneBookForParameter(
+      'OWL IN A TOWEL - Usborne Phonics Readers',
+    )
   })
 })

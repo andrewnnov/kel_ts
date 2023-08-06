@@ -11,7 +11,9 @@ export class HomePage {
 
   constructor(page) {
     this.page = page
-    this.searchBookTextField = page.locator("//input[@id='downshift-15-input']")
+    this.searchBookTextField = page.locator(
+      "//input[@placeholder='Find Books, Authors, ISBN...']",
+    )
     this.searchBookBtn = page.locator("//div[@class='w-100 flex']//button")
     this.cartBtn = page.locator("//div[@role='presentation']//button")
     this.ingresarBnt = page.locator("//div[@class='relative']//button")
@@ -36,5 +38,16 @@ export class HomePage {
     await this.page.locator(`//div[text()='${category}']`).hover()
     await this.page.locator(`//a[@title='${subcategory}']`).waitFor()
     await this.page.locator(`//a[@title='${subcategory}']`).click()
+  }
+
+  findOneBookForParameter = async (isbn: string) => {
+    await this.searchBookTextField.waitFor()
+    await this.searchBookTextField.fill(isbn)
+    await this.searchBookBtn.waitFor()
+    await this.searchBookBtn.click()
+    const numberOfProduct = await this.page
+      .locator("//span[text()=' Producto']/ancestor::span")
+      .innerText()
+    expect(numberOfProduct).toBe('1 Producto')
   }
 }
