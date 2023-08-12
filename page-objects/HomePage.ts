@@ -8,6 +8,7 @@ export class HomePage {
   readonly ingresarBnt: Locator
   readonly listOfCategory: Locator
   readonly fantasyCategoryFiction: Locator
+  readonly numberOfItem: Locator
 
   constructor(page) {
     this.page = page
@@ -20,6 +21,9 @@ export class HomePage {
 
     this.listOfCategory = page.locator(
       "//div[text()='Fiction']/ancestor::ul/li//div//div",
+    )
+    this.numberOfItem = page.locator(
+      "//div[@role='presentation']//button//span//span",
     )
   }
 
@@ -49,5 +53,10 @@ export class HomePage {
       .locator("//span[text()=' Producto']/ancestor::span")
       .innerText()
     expect(numberOfProduct).toBe('1 Producto')
+  }
+
+  getNumberOfItem = async () => {
+    const quantity = parseInt(await this.numberOfItem.innerText())
+    return quantity
   }
 }
